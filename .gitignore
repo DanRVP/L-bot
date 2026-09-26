@@ -1,0 +1,30 @@
+# Node artifact files
+node_modules/
+dist/
+
+# Unit tests
+TEST*.xml
+coverage/
+logs/*
+.phpunit.result.cache
+
+# PHP
+vendor/
+auth.json
+
+# IDE
+.vscode/
+
+# Serveless
+.serverless/
+
+# Docker/local
+mysql/
+*.log
+.env
+
+# PHPStan
+.phpstan-cache/
+
+# Postgrid CLI generated
+.setup_complete

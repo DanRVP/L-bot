@@ -1,0 +1,18 @@
+services:
+  app:
+    container_name: l-bot-bref
+    build:
+      context: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/var/task
+      - ~/.aws:/tmp/.aws:ro
+    environment:
+      HANDLER: index.php
+      BREF_RUNTIME: fpm
+      SLACK_BOT_TOKEN: ${SLACK_BOT_TOKEN:?error}
+      SLACK_SIGNING_SECRET: ${SLACK_SIGNING_SECRET:?error}
+      AWS_PROFILE: ${AWS_IAM_PROFILE:-default}
+      AWS_SHARED_CREDENTIALS_FILE: /tmp/.aws/credentials
+      AWS_CONFIG_FILE: /tmp/.aws/config

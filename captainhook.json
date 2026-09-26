@@ -1,0 +1,23 @@
+{
+  "config": {
+    "run": {
+      "mode": "docker",
+      "exec": "docker exec -i l-bot-bref",
+      "git": "/var/task/.git"
+    }
+  },
+  "pre-commit": {
+    "enabled": true,
+    "actions": [
+      {
+        "action": "vendor/bin/phpcs --colors"
+      },
+      {
+        "action": "vendor/bin/phpstan analyse"
+      },
+      {
+        "action": "vendor/bin/phpunit"
+      }
+    ]
+  }
+}

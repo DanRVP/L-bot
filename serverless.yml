@@ -1,0 +1,49 @@
+service: L-bot
+provider:
+  name: aws
+  region: eu-west-2
+  stage: production
+  environment: # Add more env variables as needed
+    SLACK_BOT_TOKEN: bref-ssm:/l-bot/slack-bot-token
+    SLACK_SIGNING_SECRET: bref-ssm:/l-bot/slack-signing-secret
+
+plugins:
+  - ./vendor/bref/bref
+
+functions:
+  postgrid:
+    handler: index.php
+    runtime: php-85-fpm
+    events:
+      - httpApi:
+          method: '*'
+          path: /{proxy+}
+
+# Exclude files from deployment
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!tests/**'
+    - '!README.md'
+    - '!.gitignore'
+    - '!package-lock.json'
+    - '!package.json'
+    - '!compose.yml'
+    - '!*.log'
+    - '!.vscode/**'
+    - '!Makefile'
+    - '!php/conf.dev.d/**'
+    - '!phpstan.neon'
+    - '!phpunit.xml'
+    - '!captainhook.json'
+    - '!phpcs.xml'
+
+# Custom resources
+resources:
+  Resources:
+    LBucket:
+      Type: "AWS::S3::Bucket" # TODO: make name dynamic as part of CI/CD
+      Properties:
+        BucketName: "L-images"
+        VersioningConfiguration:
+          Status: Suspended

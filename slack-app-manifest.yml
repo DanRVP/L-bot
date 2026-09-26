@@ -1,0 +1,26 @@
+# If you want to host this project yourself this is the slack manifest.
+# Update the URL to the hosted location of your version of the bot.
+display_information:
+  name: L Bot
+features:
+  bot_user:
+    display_name: L Bot
+    always_online: false
+  slash_commands:
+    - command: /L
+      url: https://example.com
+      description: Hand over a big fat L
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - commands
+      - files:write
+  pkce_enabled: false
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+  app_level_token_rotation_enabled: false
+  is_mcp_enabled: false
