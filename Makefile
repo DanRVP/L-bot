@@ -6,7 +6,7 @@ ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(ARGS):;@:)
 
 # Get name of bref container
-BREF_CONTAINER = $(or $(shell docker compose ps --format '{{.Name}}' | grep -m 1 "\-bref"), 'quark-bref')
+BREF_CONTAINER = $(or $(shell docker compose ps --format '{{.Name}}' | grep -m 1 "\-bref"), 'l-bot-bref')
 
 ## help:	Print commands help.
 help: Makefile
@@ -20,17 +20,9 @@ shell:
 exec:
 	docker exec -ti -w /var/task $(BREF_CONTAINER) $(ARGS)
 
-## server:	Run the server locally
-server:
-	$(MAKE) exec ARGS="vendor/bin/bref-dev-server"
-
 ## phpunit:	Run unit tests
 phpunit:
 	$(MAKE) exec ARGS="vendor/bin/phpunit"
-
-## test:	Run a test file. Call with the `file=<path>` argument
-test:
-	$(MAKE) exec ARGS="vendor/bin/bref-local --path '$(file)' handler.php"
 
 ## up:	Shortcut for "docker compose up -d"
 up:
