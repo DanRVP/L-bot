@@ -11,13 +11,13 @@ plugins:
   - ./vendor/bref/bref
 
 functions:
-  postgrid:
+  slack:
     handler: index.php
     runtime: php-85-fpm
     events:
       - httpApi:
           method: '*'
-          path: /{proxy+}
+          path: /slack
 
 # Exclude files from deployment
 package:
